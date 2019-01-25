@@ -1,0 +1,11 @@
+.guess-container {
+	display: flex;
+	justify-content: center;
+}
+
+.correct-guesses {
+	border: 1px solid black;
+	width: 80px;
+	height: 80px;
+	
+}
