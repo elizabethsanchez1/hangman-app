@@ -1,10 +1,25 @@
 let c = document.getElementById("myCanvas");
 let ctx = c.getContext("2d");
-let answer = "house";
-let submit = document.querySelector('.btn');
+let answer = "housess";
+let submit = document.querySelector('.submit-btn');
 let guessContainer = document.querySelector('.guess-container');
 
 
+for (i = 0; i< answer.length; i++){
+	let newSquare = document.createElement('div');
+	newSquare.className = "correct-guesses";
+	guessContainer.insertAdjacentElement('afterbegin', newSquare);	
+};
+
+//function createSquares(answerString) {
+//	for (i = 0; i< answerString.length; i++){
+//		let newSquare = document.createElement('div');
+//		newSquare.className = "correct-guesses";
+//		guessContainer.insertAdjacentElement('afterbegin', newSquare);	
+//	};
+//}
+//
+//createSquares(answer);
 
 
 function createBase() {
@@ -20,24 +35,24 @@ function createBase() {
 createBase();
 
 submit.addEventListener('click', function(){
- let guess = document.querySelector('.form-control').value; 
-  console.log("guess:", guess);
-  
+	let guess = document.querySelector('.form-control').value; 
+	for (i = 0; i < answer.length; i++){
+		console.log('each letter', answer[i]);
+		/*
+		1. compare answer to input with if statement
+		2. if guess is correct put into div squares
+		3. if incorrect guess put letter in array in previous-guesses div
+		
+		
+		
+		*/
+		
+	};
+	
+	
+	
   
 });
-
-function guessSquares () {
-let newSquare = document.createElement('div');
-	console.log('newSquare');
-	newSquare.className = 'guess-container';
-	document.getElementsBy 
-	
-	
-}
-
-
-
-
 
 //circle
 ctx.beginPath();
