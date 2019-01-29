@@ -9,3 +9,17 @@
 	height: 80px;
 	
 }
+.new-game{
+	display: flex;
+	justify-content: flex-end;
+}
+
+body {
+	background-color: #deeaee;
+}
+
+
+.form-control {
+	width: 20%;
+
+}

@@ -2,6 +2,7 @@ let c = document.getElementById("myCanvas");
 let ctx = c.getContext("2d");
 let answer = "house";
 let submit = document.querySelector('.btn');
+let guessContainer = document.querySelector('.guess-container');
 
 
 
@@ -24,6 +25,15 @@ submit.addEventListener('click', function(){
   
   
 });
+
+function guessSquares () {
+let newSquare = document.createElement('div');
+	console.log('newSquare');
+	newSquare.className = 'guess-container';
+	document.getElementsBy 
+	
+	
+}
 
 
 
