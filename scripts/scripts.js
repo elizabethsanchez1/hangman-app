@@ -5,6 +5,7 @@ let submit = document.querySelector('.submit-btn');
 let guessContainer = document.querySelector('.guess-container');
 
 
+
 for (i = 0; i< answer.length; i++){
 	let newSquare = document.createElement('div');
 	newSquare.className = "correct-guesses";
@@ -38,6 +39,9 @@ submit.addEventListener('click', function(){
 	let guess = document.querySelector('.form-control').value; 
 	for (i = 0; i < answer.length; i++){
 		console.log('each letter', answer[i]);
+		if (guess === answer[i]) {
+			console.log('true');
+		}
 		/*
 		1. compare answer to input with if statement
 		2. if guess is correct put into div squares
