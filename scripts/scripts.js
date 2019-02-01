@@ -6,6 +6,8 @@ let guessContainer = document.querySelector('.guess-container');
 
 
 
+
+
 for (i = 0; i< answer.length; i++){
 	let newSquare = document.createElement('div');
 	newSquare.className = "correct-guesses";
@@ -36,10 +38,21 @@ function createBase() {
 createBase();
 
 submit.addEventListener('click', function(){
-	let guess = document.querySelector('.form-control').value; 
+	
+	let guess = document.querySelector('.form-control').value;
+	let correctGuesses = document.querySelectorAll('.correct-guesses');
+	console.log(correctGuesses);
+		console.log('this is the guess:', guess);
 	for (i = 0; i < answer.length; i++){
 		console.log('each letter', answer[i]);
 		if (guess === answer[i]) {
+			correctGuesses[i].innerText = guess;
+			
+			console.log("belongs here:", i);
+			
+		
+			
+			
 			console.log('true');
 		}
 		/*
