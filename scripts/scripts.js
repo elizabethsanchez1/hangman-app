@@ -47,7 +47,7 @@ function guessComparison(event) {
 			comparisonResults.push("correct");
 		} else {
 			comparisonResults.push("incorrect");
-			check array for any true or false values 
+			//check array for any true or false values 
 		}
 	};
 	
