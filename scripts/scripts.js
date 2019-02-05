@@ -3,9 +3,7 @@ let ctx = c.getContext("2d");
 let answer = "house";
 let submit = document.querySelector('.submit-btn');
 let guessContainer = document.querySelector('.guess-container');
-
-
-
+let page = document.querySelector('body');
 
 
 for (i = 0; i< answer.length; i++){
@@ -37,35 +35,33 @@ function createBase() {
 }
 createBase();
 
-submit.addEventListener('click', function(){
-	
-	let guess = document.querySelector('.form-control').value;
+function guessComparison(event) {
+	let guess = document.querySelector('.form-control');
 	let correctGuesses = document.querySelectorAll('.correct-guesses');
-	console.log(correctGuesses);
-		console.log('this is the guess:', guess);
+	let comparisonResults = [];
+
 	for (i = 0; i < answer.length; i++){
-		console.log('each letter', answer[i]);
-		if (guess === answer[i]) {
-			correctGuesses[i].innerText = guess;
-			
-			console.log("belongs here:", i);
-					
-			console.log('true');
+		
+		if (guess.value === answer[i]) {
+			correctGuesses[i].innerText = guess.value;	
+			comparisonResults.push("correct");
+		} else {
+			comparisonResults.push("incorrect");
+			check array for any true or false values 
 		}
-		/*
-		1. compare answer to input with if statement
-		2. if guess is correct put into div squares
-		3. if incorrect guess put letter in array in previous-guesses div
-		
-		
-		
-		*/
-		
 	};
 	
-  
-});
+	guess.value = "";
+	console.log("comparison results", comparisonResults);
+};
 
+submit.addEventListener('click', guessComparison);
+
+page.addEventListener('keydown', function(event) {
+	if(event.keyCode === 13) {
+		guessComparison();
+	}
+});
 
 
 //circle
