@@ -1,6 +1,6 @@
 let c = document.getElementById("myCanvas");
 let ctx = c.getContext("2d");
-let answer = "housess";
+let answer = "house";
 let submit = document.querySelector('.submit-btn');
 let guessContainer = document.querySelector('.guess-container');
 
@@ -49,10 +49,7 @@ submit.addEventListener('click', function(){
 			correctGuesses[i].innerText = guess;
 			
 			console.log("belongs here:", i);
-			
-		
-			
-			
+					
 			console.log('true');
 		}
 		/*
@@ -66,10 +63,10 @@ submit.addEventListener('click', function(){
 		
 	};
 	
-	
-	
   
 });
+
+
 
 //circle
 ctx.beginPath();

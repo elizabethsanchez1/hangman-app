@@ -54,3 +54,8 @@ body {
 	padding: 20px;
 	margin-bottom: 5%;
 }
+.correct-guesses {
+	font-size: 50px;
+	text-align: center;
+	padding: 8px;
+}
