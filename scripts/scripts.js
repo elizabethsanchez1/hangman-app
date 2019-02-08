@@ -52,14 +52,39 @@ function guessComparison(event) {
 		if (guess.value === answer[i]) {
 			correctGuesses[i].innerText = guess.value;	
 			comparisonResults.push("correct");
-			console.log('----Comparing true and false-----', guess.every(guessComparison))
+			//console.log('----Comparing true and false-----', guess.every(guessComparison))
 		} else {
-			comparisonResults.every("incorrect");
+			comparisonResults.push("incorrect");
 			//check array for any true or false values 
 		}
 	};
 	guess.value = "";
 	console.log("comparison results", comparisonResults);
+	const result = comparisonResults.every(function(element, index){
+		//console.log("element-----", element);
+		//console.log("index-----", index);
+		console.log("element --",element === "incorrect");
+		
+		return element === "incorrect";
+	})
+	
+	/* 
+	Next steps 
+	
+	1. figure out whether or not we have to put guess on the page
+	2. figure out how you will put multiple gueses on the page
+	3. put guesses one by one on the page 
+	*/
+	
+	
+	let previousGuess = document.querySelector('.previous-guess');
+	let incorrectGuesses =[];
+	previousGuess.innerText = guess.value;
+	//
+
+	
+	console.log('what is in result', result);
+	
 };
 
 submit.addEventListener('click', guessComparison);
