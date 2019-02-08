@@ -1,9 +1,16 @@
-let c = document.getElementById("myCanvas");
+let c = document.getElementById('myCanvas');
 let ctx = c.getContext("2d");
 let answer = "house";
 let submit = document.querySelector('.submit-btn');
 let guessContainer = document.querySelector('.guess-container');
 let page = document.querySelector('body');
+let newGame = document.querySelector('.new-game');
+
+
+newGame.addEventListener('click', function() {
+	
+});
+
 
 
 for (i = 0; i< answer.length; i++){
@@ -45,12 +52,12 @@ function guessComparison(event) {
 		if (guess.value === answer[i]) {
 			correctGuesses[i].innerText = guess.value;	
 			comparisonResults.push("correct");
+			console.log('----Comparing true and false-----', guess.every(guessComparison))
 		} else {
-			comparisonResults.push("incorrect");
+			comparisonResults.every("incorrect");
 			//check array for any true or false values 
 		}
 	};
-	
 	guess.value = "";
 	console.log("comparison results", comparisonResults);
 };
