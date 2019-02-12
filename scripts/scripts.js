@@ -6,6 +6,9 @@ let guessContainer = document.querySelector('.guess-container');
 let page = document.querySelector('body');
 let newGame = document.querySelector('.new-game');
 let previousGuess = document.querySelector('.previous-guess');
+let numberOfGuesses = 0;
+
+
 
 
 newGame.addEventListener('click', function() {
@@ -47,46 +50,38 @@ function guessComparison(event) {
 	let guess = document.querySelector('.form-control');
 	let correctGuesses = document.querySelectorAll('.correct-guesses');
 	let comparisonResults = [];
+	
 
 	for (i = 0; i < answer.length; i++){
 		
 		if (guess.value === answer[i]) {
 			correctGuesses[i].innerText = guess.value;	
 			comparisonResults.push("correct");
-			//console.log('----Comparing true and false-----', guess.every(guessComparison))
+			
 		} else {
 			comparisonResults.push("incorrect");
-			//check array for any true or false values 
+			
 		}
 	};
-	guess.value = "";
-	console.log("comparison results", comparisonResults);
+	
 	const result = comparisonResults.every(function(element, index){
-		//console.log("element-----", element);
-		//console.log("index-----", index);
-		console.log("element --",element === "incorrect");
-		
 		return element === "incorrect";
 	})
 	
-	/* 
-	Next steps 
+	if ( result === true) {	
+		
+		let guessesAddedToList = document.createElement('li');
+		guessesAddedToList.className = 'list-guesses';
+		guessesAddedToList.innerHTML = guess.value;
+		previousGuess.insertAdjacentElement('beforeend', guessesAddedToList);
+		numberOfGuesses++;
+		drawCircle();
+	}
 	
-	1. figure out whether or not we have to put guess on the page
-	2. figure out how you will put multiple gueses on the page
-	3. put guesses one by one on the page 
-	*/
-	
-	
-	
-	let guessesAddedToList = document.createElement('li');
-	guessesAddedToList.innerHTML = guess;
-	previousGuess.insertAdjacentElement('beforeend', guessesAddedToList);
-	console.log("guess list" , guessesAddedToList);
+	console.log('number of wrong guesses:', numberOfGuesses);
 
-
-	
-	console.log('what is in result', result);
+	guess.value = "";
+	//https://stackoverflow.com/questions/12691691/count-the-number-of-times-an-input-has-been-made-javascript
 	
 };
 
@@ -98,11 +93,12 @@ page.addEventListener('keydown', function(event) {
 	}
 });
 
-
-//circle
-ctx.beginPath();
-ctx.arc(295, 220, 50, 0, 2 * Math.PI);
-ctx.stroke();
+function drawCircle() {
+	//circle
+	ctx.beginPath();
+	ctx.arc(295, 220, 50, 0, 2 * Math.PI);
+	ctx.stroke();
+}
 
 // straight line for the body 
 ctx.beginPath();
