@@ -5,6 +5,7 @@ let submit = document.querySelector('.submit-btn');
 let guessContainer = document.querySelector('.guess-container');
 let page = document.querySelector('body');
 let newGame = document.querySelector('.new-game');
+let previousGuess = document.querySelector('.previous-guess');
 
 
 newGame.addEventListener('click', function() {
@@ -77,10 +78,12 @@ function guessComparison(event) {
 	*/
 	
 	
-	let previousGuess = document.querySelector('.previous-guess');
-	let incorrectGuesses =[];
-	previousGuess.innerText = guess.value;
-	//
+	
+	let guessesAddedToList = document.createElement('li');
+	guessesAddedToList.innerHTML = guess;
+	previousGuess.insertAdjacentElement('beforeend', guessesAddedToList);
+	console.log("guess list" , guessesAddedToList);
+
 
 	
 	console.log('what is in result', result);
