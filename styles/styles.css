@@ -59,3 +59,13 @@ body {
 	text-align: center;
 	padding: 8px;
 }
+
+.list-guesses {
+	list-style-type: none;
+	display: inline;
+	font-size: 36px;
+}
+
+.list-guesses:after {
+	content: ", ";
+}

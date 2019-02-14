@@ -69,16 +69,16 @@ function guessComparison(event) {
 	})
 	
 	if ( result === true) {	
-		
 		let guessesAddedToList = document.createElement('li');
 		guessesAddedToList.className = 'list-guesses';
 		guessesAddedToList.innerHTML = guess.value;
 		previousGuess.insertAdjacentElement('beforeend', guessesAddedToList);
 		numberOfGuesses++;
 		drawCircle();
+	} if (result === true && numberOfGuesses === 2) {
+		drawBody();
 	}
 	
-	console.log('number of wrong guesses:', numberOfGuesses);
 
 	guess.value = "";
 	//https://stackoverflow.com/questions/12691691/count-the-number-of-times-an-input-has-been-made-javascript
@@ -98,12 +98,15 @@ function drawCircle() {
 	ctx.beginPath();
 	ctx.arc(295, 220, 50, 0, 2 * Math.PI);
 	ctx.stroke();
-}
+};
 
+function drawBody() {
 // straight line for the body 
 ctx.beginPath();
 ctx.moveTo(300, 500);
 ctx.lineTo(300, 270);
+};
+
 //right arm
 ctx.moveTo(300, 350);
 ctx.lineTo(400, 300);
