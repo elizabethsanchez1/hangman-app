@@ -15,6 +15,17 @@ newGame.addEventListener('click', function() {
 	
 });
 
+function onlyLetterCheck() {
+	let letters = /^[A-Za-z]+$/;
+	let inputField =document.querySelector('.form-control');
+	if (inputField.value.match(letters)) {
+		return true;
+	} else {
+		alert("Please enter a letter");
+		return false;
+	}
+};
+
 
 
 for (i = 0; i< answer.length; i++){
@@ -50,6 +61,7 @@ function guessComparison(event) {
 	let guess = document.querySelector('.form-control');
 	let correctGuesses = document.querySelectorAll('.correct-guesses');
 	let comparisonResults = [];
+	onlyLetterCheck();
 	
 
 	for (i = 0; i < answer.length; i++){
@@ -77,7 +89,15 @@ function guessComparison(event) {
 		drawCircle();
 	} if (result === true && numberOfGuesses === 2) {
 		drawBody();
-	}
+	} if (result === true && numberOfGuesses === 3){
+		drawRightArm();
+	} if (result === true && numberOfGuesses === 4){
+		drawLeftArm(); 
+	} if (result === true && numberOfGuesses === 5){
+		drawRightLeg(); 
+	} if (result === true && numberOfGuesses === 6){
+		drawLeftLeg(); 
+	};
 	
 
 	guess.value = "";
@@ -105,23 +125,35 @@ function drawBody() {
 ctx.beginPath();
 ctx.moveTo(300, 500);
 ctx.lineTo(300, 270);
+ctx.stroke();
 };
 
+function drawRightArm() {
 //right arm
 ctx.moveTo(300, 350);
 ctx.lineTo(400, 300);
+ctx.stroke();
+};
+
+function drawLeftArm() {
 //left arm
 ctx.moveTo(300, 350);
 ctx.lineTo(200, 300);
+ctx.stroke();
+};
+function drawRightLeg() {
 //right leg
 ctx.moveTo(369, 525);
 ctx.lineTo(300, 495);
+ctx.stroke();
+};
+
+function drawLeftLeg() {
 //left leg
 ctx.moveTo(230, 520);
 ctx.lineTo(300, 495);
-
 ctx.stroke();
-
+}
 
 
 
