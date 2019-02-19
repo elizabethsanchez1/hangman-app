@@ -64,8 +64,5 @@ body {
 	list-style-type: none;
 	display: inline;
 	font-size: 36px;
-}
-
-.list-guesses:after {
-	content: ", ";
+	padding: 5px;
 }
