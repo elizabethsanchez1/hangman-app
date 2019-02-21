@@ -12,6 +12,10 @@ let numberOfGuesses = 0;
 
 
 newGame.addEventListener('click', function() {
+	submit.disabled = false;
+	guessContainer.innerHTML = "";
+	numberOfGuesses = 0;
+	
 	
 });
 
