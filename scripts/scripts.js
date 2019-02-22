@@ -7,6 +7,7 @@ let page = document.querySelector('body');
 let newGame = document.querySelector('.new-game');
 let previousGuess = document.querySelector('.previous-guess');
 let numberOfGuesses = 0;
+let arrayOfGuesses = [];
 
 
 
@@ -22,6 +23,22 @@ newGame.addEventListener('click', function() {
 function onlyLetterCheck() {
 	let letters = /^[A-Za-z]+$/;
 	let inputField =document.querySelector('.form-control');
+	
+	arrayOfGuesses.push(inputField.value);
+	if (inputField.value === arrayOfGuesses){
+		return false;
+	}
+	console.log(arrayOfGuesses);
+	console.log(inputField.value);
+	console.log("false",(inputField.value === arrayOfGuesses));
+	/*
+	need an if statment which states if which returns a false value.
+	need to check if you the inputfield value is equal to any item in the array and return 
+	true or false
+	
+	
+	*/
+	console.log("array of guesses", arrayOfGuesses);
 	if (inputField.value.match(letters)) {
 		return true;
 	} else {
@@ -65,8 +82,11 @@ function guessComparison(event) {
 	let guess = document.querySelector('.form-control');
 	let correctGuesses = document.querySelectorAll('.correct-guesses');
 	let comparisonResults = [];
-	onlyLetterCheck();
 	
+	if (onlyLetterCheck() === false) {
+		guess.value = "";
+		return;
+	}
 
 	for (i = 0; i < answer.length; i++){
 		
@@ -87,7 +107,7 @@ function guessComparison(event) {
 	if ( result === true) {	
 		let guessesAddedToList = document.createElement('li');
 		guessesAddedToList.className = 'list-guesses';
-		guessesAddedToList.innerHTML = guess.value;
+		guessesAddedToList.innerHTML = guess.value + ',';
 		previousGuess.insertAdjacentElement('beforeend', guessesAddedToList);
 		numberOfGuesses++;
 		drawCircle();
@@ -101,7 +121,16 @@ function guessComparison(event) {
 		drawRightLeg(); 
 	} if (result === true && numberOfGuesses === 6){
 		drawLeftLeg(); 
-	};
+	} if (numberOfGuesses === 6) {
+		previousGuess.innerHTML = "";
+		// previousGuess.innerHTML = "you lose!";
+		
+		
+		previousGuess.innerHTML = `<li class="list-guesses">You Lose!</li>`;
+		
+		
+	}
+	
 	
 
 	guess.value = "";
