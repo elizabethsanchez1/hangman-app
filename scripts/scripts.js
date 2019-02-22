@@ -23,21 +23,14 @@ newGame.addEventListener('click', function() {
 function onlyLetterCheck() {
 	let letters = /^[A-Za-z]+$/;
 	let inputField =document.querySelector('.form-control');
-	
-	arrayOfGuesses.push(inputField.value);
-	if (inputField.value === arrayOfGuesses){
+	if(arrayOfGuesses.includes(inputField.value)) {
 		return false;
-	}
-	console.log(arrayOfGuesses);
-	console.log(inputField.value);
-	console.log("false",(inputField.value === arrayOfGuesses));
-	/*
-	need an if statment which states if which returns a false value.
-	need to check if you the inputfield value is equal to any item in the array and return 
-	true or false
+	};
 	
+	console.log("output:", !arrayOfGuesses.includes(inputField.value));
+	arrayOfGuesses.push(inputField.value);
 	
-	*/
+
 	console.log("array of guesses", arrayOfGuesses);
 	if (inputField.value.match(letters)) {
 		return true;
@@ -45,6 +38,7 @@ function onlyLetterCheck() {
 		alert("Please enter a letter");
 		return false;
 	}
+	
 };
 
 
