@@ -35,7 +35,8 @@ function onlyLetterCheck() {
 	if (inputField.value.match(letters)) {
 		return true;
 	} else {
-		alert("Please enter a letter");
+		$('#exampleModalCenter').modal('show')
+		//alert("Please enter a letter");
 		return false;
 	}
 	
@@ -96,7 +97,25 @@ function guessComparison(event) {
 	
 	const result = comparisonResults.every(function(element, index){
 		return element === "incorrect";
-	})
+	});
+	
+	/* 
+	Take correctGuesses nodelist and turn that back into a string
+	
+	then take your new string and compare that against the answer
+	
+	*/
+	
+	
+	console.log("correct guess", correctGuesses);
+	console.log("first index", correctGuesses[0]);
+	console.log("second index", correctGuesses[1].textContent);
+
+
+	console.log("guess.value", guess.value);
+	console.log("answer", answer);
+	
+	
 	
 	if ( result === true) {	
 		let guessesAddedToList = document.createElement('li');
@@ -123,7 +142,7 @@ function guessComparison(event) {
 		previousGuess.innerHTML = `<li class="list-guesses">You Lose!</li>`;
 		
 		
-	}
+	} 
 	
 	
 
