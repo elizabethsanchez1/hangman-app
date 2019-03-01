@@ -98,7 +98,12 @@ function guessComparison(event) {
 	const result = comparisonResults.every(function(element, index){
 		return element === "incorrect";
 	});
-	
+		
+	let nodeListArray = [];
+	for (i = 0; i < correctGuesses.length; i++) {
+		let items = correctGuesses[i].textContent;
+		console.log("item------", items);	
+	};
 	/* 
 	Take correctGuesses nodelist and turn that back into a string
 	
@@ -200,8 +205,3 @@ ctx.moveTo(230, 520);
 ctx.lineTo(300, 495);
 ctx.stroke();
 }
-
-
-
-
-
