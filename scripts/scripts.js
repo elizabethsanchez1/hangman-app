@@ -99,11 +99,28 @@ function guessComparison(event) {
 		return element === "incorrect";
 	});
 		
-	let nodeListArray = [];
+	let arrayOfCorrectGuesses = [];
+	console.log("correctguesses", Array.from(correctGuesses));
+	
+	
+//	correctGuesses.forEach(function(guess) {
+//		console.log('each guess', guess);
+//	});
+	
+	
 	for (i = 0; i < correctGuesses.length; i++) {
 		let items = correctGuesses[i].textContent;
-		console.log("item------", items);	
+		console.log("item------", items);
+		arrayOfCorrectGuesses.push(items);
+		console.log("array of correct guesses", arrayOfCorrectGuesses.join(''));
+		
+	if(arrayOfCorrectGuesses.join('') === answer){
+		alert("winner");
+	}
+		
+		
 	};
+
 	/* 
 	Take correctGuesses nodelist and turn that back into a string
 	
