@@ -1,25 +1,3 @@
-/* 
-	1. formatting
-		- make sure everything is indented properly
-		- make sure empty line are kept at 1-2 max
-	
-	2. refactor variables
-		- if global variable is only used in one function move into that function\
-		- if variable is not being changed use 'const' if it is being change use 'let'
-		- if you are using duplicate variables anywhere, delete them 
-
-	3. add comments to code where you need to explain something that is not obvious
-
-	4. change for loop into forEach loops
-	
-	5. Separate code into its own functions 
-		- each function should only do "ONE THING"
-		- functions should use other function if they need the functionality
-	
-*/
-
-
-
 let c = document.getElementById('myCanvas');
 let ctx = c.getContext("2d");
 let answer = "house";
@@ -33,11 +11,12 @@ let arrayOfGuesses = [];
 
 
 
+
 newGame.addEventListener('click', function () {
-	
 	submit.disabled = false;
 	guessContainer.innerHTML = "";
 	numberOfGuesses = 0;
+
 
 });
 
@@ -49,7 +28,6 @@ function onlyLetterCheck() {
 	};
 
 	console.log("output:", !arrayOfGuesses.includes(inputField.value));
-	// this does that 
 	arrayOfGuesses.push(inputField.value);
 
 
