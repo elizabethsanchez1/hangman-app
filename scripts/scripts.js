@@ -18,8 +18,6 @@
 	
 */
 
-
-
 let c = document.getElementById('myCanvas');
 let ctx = c.getContext("2d");
 let answer = "house";
@@ -33,12 +31,13 @@ let arrayOfGuesses = [];
 
 
 
+
 newGame.addEventListener('click', function () {
-	
 	submit.disabled = false;
 	guessContainer.innerHTML = "";
 	numberOfGuesses = 0;
 
+  
 });
 
 function onlyLetterCheck() {
@@ -49,7 +48,6 @@ function onlyLetterCheck() {
 	};
 
 	console.log("output:", !arrayOfGuesses.includes(inputField.value));
-	// this does that 
 	arrayOfGuesses.push(inputField.value);
 
 

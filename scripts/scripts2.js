@@ -1,66 +1,36 @@
-let c = document.getElementById('myCanvas');
-let ctx = c.getContext("2d");
-let answer = "house";
-let submit = document.querySelector('.submit-btn');
-let guessContainer = document.querySelector('.guess-container');
-let page = document.querySelector('body');
-let newGame = document.querySelector('.new-game');
-let previousGuess = document.querySelector('.previous-guess');
+const c = document.getElementById('myCanvas');
+const ctx = c.getContext("2d");
+const answer = "house";
+const submit = document.querySelector('.submit-btn');
+const page = document.querySelector('body');
 let numberOfGuesses = 0;
-let arrayOfGuesses = [];
 
-
-
-
-newGame.addEventListener('click', function () {
-	submit.disabled = false;
-	guessContainer.innerHTML = "";
-	numberOfGuesses = 0;
-
-
-});
 
 function onlyLetterCheck() {
-	let letters = /^[A-Za-z]+$/;
-	let inputField = document.querySelector('.form-control');
+	const arrayOfGuesses = [];
+	const letters = /^[A-Za-z]+$/;
+	const inputField = document.querySelector('.form-control');
 	if (arrayOfGuesses.includes(inputField.value)) {
 		return false;
 	};
-
-	console.log("output:", !arrayOfGuesses.includes(inputField.value));
 	arrayOfGuesses.push(inputField.value);
-
-
-	console.log("array of guesses", arrayOfGuesses);
 	if (inputField.value.match(letters)) {
 		return true;
 	} else {
 		$('#exampleModalCenter').modal('show')
-		//alert("Please enter a letter");
 		return false;
 	}
-
 };
 
-
-
-for (i = 0; i < answer.length; i++) {
-	let newSquare = document.createElement('div');
-	newSquare.className = "correct-guesses";
-	guessContainer.insertAdjacentElement('afterbegin', newSquare);
+function guessSquares() {
+	const guessContainer = document.querySelector('.guess-container');
+	for (i = 0; i < answer.length; i++) {
+		const newSquare = document.createElement('div');
+		newSquare.className = "correct-guesses";
+		guessContainer.insertAdjacentElement('afterbegin', newSquare);
+	};
 };
-
-
-//function createSquares(answerString) {
-//	for (i = 0; i< answerString.length; i++){
-//		let newSquare = document.createElement('div');
-//		newSquare.className = "correct-guesses";
-//		guessContainer.insertAdjacentElement('afterbegin', newSquare);	
-//	};
-//}
-//
-//createSquares(answer);
-
+guessSquares();
 
 function createBase() {
 	ctx.beginPath();
@@ -75,81 +45,61 @@ function createBase() {
 createBase();
 
 function guessComparison(event) {
-	let guess = document.querySelector('.form-control');
-	let correctGuesses = document.querySelectorAll('.correct-guesses');
-	let comparisonResults = [];
+	const guess = document.querySelector('.form-control');
+	const correctGuesses = document.querySelectorAll('.correct-guesses');
+	const comparisonResults = [];
 
 	if (onlyLetterCheck() === false) {
 		guess.value = "";
 		return;
 	}
 
-	for (i = 0; i < answer.length; i++) {
-
-		if (guess.value === answer[i]) {
-			correctGuesses[i].innerText = guess.value;
-			comparisonResults.push("correct");
-
-		} else {
-			comparisonResults.push("incorrect");
-		}
-		
+	//	answer.forEach(function(item) {
+	//		if (guess.value === answer[item]) {
+	//			correctGuesses[item].innerText = guess.value;
+	//			comparisonResults.push("correct");
+	//		} else {
+	//			comparisonResults.push("incorrect");
+	//		}
+	//	});
+	//	const result = comparisonResults.every(function (element, index) {
+	//		return element === "incorrect";
+	//	});
+	//		
+	function comparing() {
+		for (i = 0; i < answer.length; i++) {
+			if (guess.value === answer[i]) {
+				correctGuesses[i].innerText = guess.value;
+				comparisonResults.push("correct");
+			} else {
+				comparisonResults.push("incorrect");
+			}
+		};
 	};
-	
-	console.log("-------correct Guess-----------",correctGuesses);
+	comparing();
 
 	const result = comparisonResults.every(function (element, index) {
 		return element === "incorrect";
 	});
 
-	let arrayOfCorrectGuesses = [];
-	// console.log("correctguesses", Array.from(correctGuesses));
-
-
-	//	correctGuesses.forEach(function(guess) {
-	//		console.log('each guess', guess);
-	//	});
-
-
+function winnerComparison() {
+	const arrayOfCorrectGuesses = [];
 	for (i = 0; i < correctGuesses.length; i++) {
-		let items = correctGuesses[i].textContent;
-		// console.log("item------", items);
+		const items = correctGuesses[i].textContent;
 		arrayOfCorrectGuesses.push(items);
-		console.log("array of correct guesses", arrayOfCorrectGuesses.join(''));
-
 		if (arrayOfCorrectGuesses.join('') === answer) {
 			$('#exampleModalCenter2').modal('show')
-			//alert('Winner');
-			setTimeout(function() {
-				//alert('Winner');
+			setTimeout(function () {
 				$('#exampleModalCenter2').modal('show')
 			}, 100);
-			
 		}
-
-
 	};
-
-	/* 
-	Take correctGuesses nodelist and turn that back into a string
+}
+	winnerComparison();
 	
-	then take your new string and compare that against the answer
-	
-	*/
-
-
-//	console.log("correct guess", correctGuesses);
-//	console.log("first index", correctGuesses[0]);
-//	console.log("second index", correctGuesses[1].textContent);
-//
-//
-//	console.log("guess.value", guess.value);
-//	console.log("answer", answer);
-
-
-
 	if (result === true) {
-		let guessesAddedToList = document.createElement('li');
+		const previousGuess = document.querySelector('.previous-guess');
+		const guessesAddedToList = document.createElement('li');
 		guessesAddedToList.className = 'list-guesses';
 		guessesAddedToList.innerHTML = guess.value + ',';
 		previousGuess.insertAdjacentElement('beforeend', guessesAddedToList);
@@ -173,20 +123,11 @@ function guessComparison(event) {
 	}
 	if (numberOfGuesses === 6) {
 		previousGuess.innerHTML = "";
-		// previousGuess.innerHTML = "you lose!";
-
-
 		previousGuess.innerHTML = `<li class="list-guesses">You Lose!</li>`;
-
-
 	}
-
-
-
 	guess.value = "";
-	//https://stackoverflow.com/questions/12691691/count-the-number-of-times-an-input-has-been-made-javascript
-
 };
+
 
 submit.addEventListener('click', guessComparison);
 
