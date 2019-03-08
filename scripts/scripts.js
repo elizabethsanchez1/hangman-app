@@ -1,86 +1,40 @@
-/* 
-	1. formatting
-		- make sure everything is indented properly
-		- make sure empty line are kept at 1-2 max
-	
-	2. refactor variables
-		- if global variable is only used in one function move into that function\
-		- if variable is not being changed use 'const' if it is being change use 'let'
-		- if you are using duplicate variables anywhere, delete them 
-
-	3. add comments to code where you need to explain something that is not obvious
-
-	4. change for loop into forEach loops
-	
-	5. Separate code into its own functions 
-		- each function should only do "ONE THING"
-		- functions should use other function if they need the functionality
-	
-*/
-
-let c = document.getElementById('myCanvas');
-let ctx = c.getContext("2d");
-let answer = "house";
-let submit = document.querySelector('.submit-btn');
-let guessContainer = document.querySelector('.guess-container');
-let page = document.querySelector('body');
-let newGame = document.querySelector('.new-game');
-let previousGuess = document.querySelector('.previous-guess');
-let numberOfGuesses = 0;
-let arrayOfGuesses = [];
+const c = document.getElementById('myCanvas');
+const ctx = c.getContext("2d");
+const answer = "house";
+const submit = document.querySelector('.submit-btn');
+const page = document.querySelector('body');
 
 
-
-
-newGame.addEventListener('click', function () {
-	submit.disabled = false;
-	guessContainer.innerHTML = "";
-	numberOfGuesses = 0;
-
-  
-});
 
 function onlyLetterCheck() {
-	let letters = /^[A-Za-z]+$/;
-	let inputField = document.querySelector('.form-control');
+	const arrayOfGuesses = [];
+	const letters = /^[A-Za-z]+$/;
+	const inputField = document.querySelector('.form-control');
+
 	if (arrayOfGuesses.includes(inputField.value)) {
 		return false;
 	};
 
-	console.log("output:", !arrayOfGuesses.includes(inputField.value));
 	arrayOfGuesses.push(inputField.value);
 
-
-	console.log("array of guesses", arrayOfGuesses);
 	if (inputField.value.match(letters)) {
 		return true;
 	} else {
 		$('#exampleModalCenter').modal('show')
-		//alert("Please enter a letter");
 		return false;
 	}
-
 };
 
+function guessSquares() {
+	const guessContainer = document.querySelector('.guess-container');
 
-
-for (i = 0; i < answer.length; i++) {
-	let newSquare = document.createElement('div');
-	newSquare.className = "correct-guesses";
-	guessContainer.insertAdjacentElement('afterbegin', newSquare);
+	answer.split("").forEach(function () {
+		const newSquare = document.createElement('div');
+		newSquare.className = "correct-guesses";
+		guessContainer.insertAdjacentElement('afterbegin', newSquare);
+	});
 };
-
-
-//function createSquares(answerString) {
-//	for (i = 0; i< answerString.length; i++){
-//		let newSquare = document.createElement('div');
-//		newSquare.className = "correct-guesses";
-//		guessContainer.insertAdjacentElement('afterbegin', newSquare);	
-//	};
-//}
-//
-//createSquares(answer);
-
+guessSquares();
 
 function createBase() {
 	ctx.beginPath();
@@ -94,82 +48,45 @@ function createBase() {
 }
 createBase();
 
-function guessComparison(event) {
-	let guess = document.querySelector('.form-control');
-	let correctGuesses = document.querySelectorAll('.correct-guesses');
-	let comparisonResults = [];
-
-	if (onlyLetterCheck() === false) {
-		guess.value = "";
-		return;
-	}
+function comparing(correctGuesses, guess) {
+	const comparisonResults = [];
 
 	for (i = 0; i < answer.length; i++) {
-
 		if (guess.value === answer[i]) {
 			correctGuesses[i].innerText = guess.value;
 			comparisonResults.push("correct");
-
 		} else {
 			comparisonResults.push("incorrect");
 		}
-		
 	};
-	
-	console.log("-------correct Guess-----------",correctGuesses);
 
-	const result = comparisonResults.every(function (element, index) {
-		return element === "incorrect";
-	});
+	return comparisonResults
+};
 
-	let arrayOfCorrectGuesses = [];
-	// console.log("correctguesses", Array.from(correctGuesses));
-
-
-	//	correctGuesses.forEach(function(guess) {
-	//		console.log('each guess', guess);
-	//	});
-
+function winnerComparison(correctGuesses) {
+	const arrayOfCorrectGuesses = [];
 
 	for (i = 0; i < correctGuesses.length; i++) {
-		let items = correctGuesses[i].textContent;
-		// console.log("item------", items);
+		const items = correctGuesses[i].textContent;
 		arrayOfCorrectGuesses.push(items);
-		console.log("array of correct guesses", arrayOfCorrectGuesses.join(''));
 
 		if (arrayOfCorrectGuesses.join('') === answer) {
 			$('#exampleModalCenter2').modal('show')
-			//alert('Winner');
-			setTimeout(function() {
-				//alert('Winner');
+			setTimeout(function () {
 				$('#exampleModalCenter2').modal('show')
 			}, 100);
-			
 		}
-
-
 	};
 
-	/* 
-	Take correctGuesses nodelist and turn that back into a string
+	return arrayOfCorrectGuesses;
+};
+
+function handleWrongGuesses(result, guess) {
+	let numberOfGuesses = 0;
 	
-	then take your new string and compare that against the answer
-	
-	*/
-
-
-//	console.log("correct guess", correctGuesses);
-//	console.log("first index", correctGuesses[0]);
-//	console.log("second index", correctGuesses[1].textContent);
-//
-//
-//	console.log("guess.value", guess.value);
-//	console.log("answer", answer);
-
-
-
 	if (result === true) {
-		let guessesAddedToList = document.createElement('li');
+		const previousGuess = document.querySelector('.previous-guess');
+		const guessesAddedToList = document.createElement('li');
 		guessesAddedToList.className = 'list-guesses';
 		guessesAddedToList.innerHTML = guess.value + ',';
 		previousGuess.insertAdjacentElement('beforeend', guessesAddedToList);
@@ -193,20 +110,30 @@ function guessComparison(event) {
 	}
 	if (numberOfGuesses === 6) {
 		previousGuess.innerHTML = "";
-		// previousGuess.innerHTML = "you lose!";
-
-
 		previousGuess.innerHTML = `<li class="list-guesses">You Lose!</li>`;
-
-
 	}
-
-
-
-	guess.value = "";
-	//https://stackoverflow.com/questions/12691691/count-the-number-of-times-an-input-has-been-made-javascript
-
 };
+
+function guessComparison(event) {
+	const guess = document.querySelector('.form-control');
+	const correctGuesses = document.querySelectorAll('.correct-guesses');
+
+
+	if (onlyLetterCheck() === false) {
+		guess.value = "";
+		return;
+	}
+	const comparisonResults = comparing(correctGuesses, guess);
+
+	const result = comparisonResults.every(function (element, index) {
+		return element === "incorrect";
+	});
+
+	winnerComparison(correctGuesses);
+	handleWrongGuesses(result, guess);
+	guess.value = "";
+};
+
 
 submit.addEventListener('click', guessComparison);
 

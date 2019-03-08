@@ -3,17 +3,27 @@ const ctx = c.getContext("2d");
 const answer = "house";
 const submit = document.querySelector('.submit-btn');
 const page = document.querySelector('body');
-let numberOfGuesses = 0;
+
+
+/* 
+1. make an array of questions
+2. make an array of answers that belong to those questions
+3. dynamially pick a question when the page load
+4. allow user to restart game and have javascript chose another question for them
+*/
 
 
 function onlyLetterCheck() {
 	const arrayOfGuesses = [];
 	const letters = /^[A-Za-z]+$/;
 	const inputField = document.querySelector('.form-control');
+
 	if (arrayOfGuesses.includes(inputField.value)) {
 		return false;
 	};
+
 	arrayOfGuesses.push(inputField.value);
+
 	if (inputField.value.match(letters)) {
 		return true;
 	} else {
@@ -24,11 +34,12 @@ function onlyLetterCheck() {
 
 function guessSquares() {
 	const guessContainer = document.querySelector('.guess-container');
-	for (i = 0; i < answer.length; i++) {
+
+	answer.split("").forEach(function () {
 		const newSquare = document.createElement('div');
 		newSquare.className = "correct-guesses";
 		guessContainer.insertAdjacentElement('afterbegin', newSquare);
-	};
+	});
 };
 guessSquares();
 
@@ -44,49 +55,28 @@ function createBase() {
 }
 createBase();
 
-function guessComparison(event) {
-	const guess = document.querySelector('.form-control');
-	const correctGuesses = document.querySelectorAll('.correct-guesses');
+function comparing(correctGuesses, guess) {
 	const comparisonResults = [];
 
-	if (onlyLetterCheck() === false) {
-		guess.value = "";
-		return;
-	}
-
-	//	answer.forEach(function(item) {
-	//		if (guess.value === answer[item]) {
-	//			correctGuesses[item].innerText = guess.value;
-	//			comparisonResults.push("correct");
-	//		} else {
-	//			comparisonResults.push("incorrect");
-	//		}
-	//	});
-	//	const result = comparisonResults.every(function (element, index) {
-	//		return element === "incorrect";
-	//	});
-	//		
-	function comparing() {
-		for (i = 0; i < answer.length; i++) {
-			if (guess.value === answer[i]) {
-				correctGuesses[i].innerText = guess.value;
-				comparisonResults.push("correct");
-			} else {
-				comparisonResults.push("incorrect");
-			}
-		};
+	for (i = 0; i < answer.length; i++) {
+		if (guess.value === answer[i]) {
+			correctGuesses[i].innerText = guess.value;
+			comparisonResults.push("correct");
+		} else {
+			comparisonResults.push("incorrect");
+		}
 	};
-	comparing();
 
-	const result = comparisonResults.every(function (element, index) {
-		return element === "incorrect";
-	});
+	return comparisonResults
+};
 
-function winnerComparison() {
+function winnerComparison(correctGuesses) {
 	const arrayOfCorrectGuesses = [];
+
 	for (i = 0; i < correctGuesses.length; i++) {
 		const items = correctGuesses[i].textContent;
 		arrayOfCorrectGuesses.push(items);
+
 		if (arrayOfCorrectGuesses.join('') === answer) {
 			$('#exampleModalCenter2').modal('show')
 			setTimeout(function () {
@@ -94,8 +84,12 @@ function winnerComparison() {
 			}, 100);
 		}
 	};
-}
-	winnerComparison();
+
+	return arrayOfCorrectGuesses;
+};
+
+function handleWrongGuesses(result, guess) {
+	let numberOfGuesses = 0;
 	
 	if (result === true) {
 		const previousGuess = document.querySelector('.previous-guess');
@@ -125,6 +119,25 @@ function winnerComparison() {
 		previousGuess.innerHTML = "";
 		previousGuess.innerHTML = `<li class="list-guesses">You Lose!</li>`;
 	}
+};
+
+function guessComparison(event) {
+	const guess = document.querySelector('.form-control');
+	const correctGuesses = document.querySelectorAll('.correct-guesses');
+
+
+	if (onlyLetterCheck() === false) {
+		guess.value = "";
+		return;
+	}
+	const comparisonResults = comparing(correctGuesses, guess);
+
+	const result = comparisonResults.every(function (element, index) {
+		return element === "incorrect";
+	});
+
+	winnerComparison(correctGuesses);
+	handleWrongGuesses(result, guess);
 	guess.value = "";
 };
 
