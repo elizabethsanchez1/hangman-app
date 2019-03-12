@@ -3,7 +3,35 @@ const ctx = c.getContext("2d");
 const answer = "house";
 const submit = document.querySelector('.submit-btn');
 const page = document.querySelector('body');
-let questions = ["What is the building people live inside of?", "Where do kids go to learn?", "In what sport do you only kick the ball?"]
+let key = [
+	{
+		question: "What is the building people live inside of ?",
+		answer: "house",
+		addressNumber: 5780,
+		state: 'Texas',
+		jobs: ['programmer 0', 'dishwasher'],
+	},
+	{
+		question: "Where do kids go to learn?",
+		answer: "school"
+	},
+	{
+		question: "In what sport do you only kick a ball?",
+		answer: "soccer"
+	},
+]
+
+
+const currentItem = 0;
+
+key.forEach(function(item){
+	console.log("array values", item);
+	console.log("questions", item.question);
+	console.log("answer", item.answer);
+})
+
+console.log("second item", key[currentItem]);
+console.log("current item question", key[currentItem].question);
 
 
 /* 
@@ -13,10 +41,9 @@ let questions = ["What is the building people live inside of?", "Where do kids g
 4. allow user to restart game and have javascript chose another question for them
 */
 function newQuestion() {
-let randomNumber = Math.floor(Math.random() * 3);
-document.querySelector('.new-question').innerHTML = questions[randomNumber];
-console.log("random number", randomNumber);
-	console.log(questions[randomNumber]);
+	let randomNumber = Math.floor(Math.random() * key[currentItem].question);
+	console.log("randomNumber", randomNumber);
+	document.querySelector('.new-question').innerHTML= key[randomNumber];
 }
 newQuestion()
 
