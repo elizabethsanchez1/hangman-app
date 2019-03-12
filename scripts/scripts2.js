@@ -3,6 +3,7 @@ const ctx = c.getContext("2d");
 const answer = "house";
 const submit = document.querySelector('.submit-btn');
 const page = document.querySelector('body');
+let questions = ["What is the building people live inside of?", "Where do kids go to learn?", "In what sport do you only kick the ball?"]
 
 
 /* 
@@ -11,7 +12,13 @@ const page = document.querySelector('body');
 3. dynamially pick a question when the page load
 4. allow user to restart game and have javascript chose another question for them
 */
-
+function newQuestion() {
+let randomNumber = Math.floor(Math.random() * 3);
+document.querySelector('.new-question').innerHTML = questions[randomNumber];
+console.log("random number", randomNumber);
+	console.log(questions[randomNumber]);
+}
+newQuestion()
 
 function onlyLetterCheck() {
 	const arrayOfGuesses = [];
@@ -90,7 +97,7 @@ function winnerComparison(correctGuesses) {
 
 function handleWrongGuesses(result, guess) {
 	let numberOfGuesses = 0;
-	
+
 	if (result === true) {
 		const previousGuess = document.querySelector('.previous-guess');
 		const guessesAddedToList = document.createElement('li');

@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html>
+
 <head>
 	<title>hangman</title>
 	<!-- Latest compiled and minified CSS -->
@@ -8,79 +9,82 @@
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
 	<link rel="stylesheet" href="styles/styles.css">
 </head>
+
 <body>
 	<nav class="new-game">
 		<button type="button" class="new-game btn btn-outline-secondary">New Game</button>
 	</nav>
 	<h1>What is the building people live inside of ?</h1>
-	
-	
+	<div class="new-question"></div>
+
+
 	<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-	  <div class="modal-dialog modal-dialog-centered" role="document">
-		<div class="modal-content">
-		  <div class="modal-header">
+		<div class="modal-dialog modal-dialog-centered" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
 
-			<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-			  <span aria-hidden="true">&times;</span>
-			</button>
-		  </div>
-		  <div class="modal-body">
-			Please enter a letter.
-		  </div>
-		  <div class="modal-footer">
-			<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+				<div class="modal-body">
+					Please enter a letter.
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
 
-		  </div>
+				</div>
+			</div>
 		</div>
-	  </div>
 	</div>
-	
+
 
 	<div class="form-group">
-	  <label for="exampleInputEmail1">Enter Guess here</label>
-	  <input type="email" class="form-control user-guess" id="exampleInputEmail1">
-	  <button class="submit-btn btn btn-default" type="submit">Submit</button>
+		<label for="exampleInputEmail1">Enter Guess here</label>
+		<input type="email" class="form-control user-guess" id="exampleInputEmail1">
+		<button class="submit-btn btn btn-default" type="submit">Submit</button>
 	</div>
-	
-	
+
+
 	<div class="guess-container">
-	
+
 	</div>
 	<div class="previous-container">
 		<ul class="previous-guess"></ul>
 	</div>
-	
+
 
 	<div class="modal fade" id="exampleModalCenter2" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-	  <div class="modal-dialog modal-dialog-centered" role="document">
-		<div class="modal-content">
-		  <div class="modal-header">
+		<div class="modal-dialog modal-dialog-centered" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
 
-			<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-			  <span aria-hidden="true">&times;</span>
-			</button>
-		  </div>
-		  <div class="modal-body">
-			Winner!
-		  </div>
-		  <div class="modal-footer">
-			<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+				<div class="modal-body">
+					Winner!
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
 
-		  </div>
+				</div>
+			</div>
 		</div>
-	  </div>
 	</div>
-	
 
-	
-	
+
+
+
 	<canvas id="myCanvas" width="450" height="610" style="border:5px solid black;">
 	</canvas>
-	
+
 	<!-- Latest compiled and minified JavaScript -->
-  	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
-<!--	<script src="scripts/scripts.js"></script>-->
+	<!--	<script src="scripts/scripts.js"></script>-->
 	<script src="scripts/scripts2.js"></script>
 </body>
+
 </html>
