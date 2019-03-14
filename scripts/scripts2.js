@@ -3,13 +3,12 @@ const ctx = c.getContext("2d");
 const answer = "house";
 const submit = document.querySelector('.submit-btn');
 const page = document.querySelector('body');
+const newGame = document.querySelector('.new-game-btn');
 let key = [
 	{
 		question: "What is the building people live inside of ?",
 		answer: "house",
-		addressNumber: 5780,
-		state: 'Texas',
-		jobs: ['programmer 0', 'dishwasher'],
+
 	},
 	{
 		question: "Where do kids go to learn?",
@@ -20,11 +19,13 @@ let key = [
 		answer: "soccer"
 	},
 ]
-
-
 const currentItem = 0;
 
-key.forEach(function(item){
+//newGame.addEventListener('click',newQuestion;
+//	console.log('ive been clicked');
+
+
+key.forEach(function (item) {
 	console.log("array values", item);
 	console.log("questions", item.question);
 	console.log("answer", item.answer);
@@ -41,11 +42,12 @@ console.log("current item question", key[currentItem].question);
 4. allow user to restart game and have javascript chose another question for them
 */
 function newQuestion() {
-	let randomNumber = Math.floor(Math.random() * key[currentItem].question);
+	let randomNumber = Math.floor(Math.random() * key[currentItem].question.length);
 	console.log("randomNumber", randomNumber);
-	document.querySelector('.new-question').innerHTML= key[randomNumber];
-}
-newQuestion()
+	document.querySelector('.new-question').innerHTML = key[randomNumber];
+};
+
+newQuestion();
 
 function onlyLetterCheck() {
 	const arrayOfGuesses = [];
