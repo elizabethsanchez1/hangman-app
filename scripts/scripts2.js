@@ -1,6 +1,14 @@
+/* 
+	Finish up new game functionality 
+	- clear all divs
+	- clear hangman drawing
+	- all new game from the winner
+*/
+
+
 const c = document.getElementById('myCanvas');
 const ctx = c.getContext("2d");
-const answer = "house";
+let answer = "house";
 const submit = document.querySelector('.submit-btn');
 const page = document.querySelector('body');
 const newGame = document.querySelector('.new-game-btn');
@@ -19,35 +27,29 @@ let key = [
 		answer: "soccer"
 	},
 ]
-const currentItem = 0;
-
-//newGame.addEventListener('click',newQuestion;
-//	console.log('ive been clicked');
 
 
-key.forEach(function (item) {
-	console.log("array values", item);
-	console.log("questions", item.question);
-	console.log("answer", item.answer);
-})
-
-console.log("second item", key[currentItem]);
-console.log("current item question", key[currentItem].question);
 
 
-/* 
-1. make an array of questions
-2. make an array of answers that belong to those questions
-3. dynamially pick a question when the page load
-4. allow user to restart game and have javascript chose another question for them
-*/
+newGame.addEventListener('click', function(){
+	newQuestion();
+	const previousGuess = document.querySelector('.previous-guess');
+	previousGuess.innerHTML = "";
+	
+});
+	
+
+
 function newQuestion() {
-	let randomNumber = Math.floor(Math.random() * key[currentItem].question.length);
-	console.log("randomNumber", randomNumber);
-	document.querySelector('.new-question').innerHTML = key[randomNumber];
+	let randomNumber = Math.floor(Math.random() * key.length);
+	console.log(randomNumber);
+	document.querySelector('.new-question').innerHTML = key[randomNumber].question;
+	console.log("question",key[randomNumber].question);
+	answer = key[randomNumber].answer;
 };
 
 newQuestion();
+
 
 function onlyLetterCheck() {
 	const arrayOfGuesses = [];
@@ -59,6 +61,7 @@ function onlyLetterCheck() {
 	};
 
 	arrayOfGuesses.push(inputField.value);
+	
 
 	if (inputField.value.match(letters)) {
 		return true;
