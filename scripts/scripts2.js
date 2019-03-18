@@ -31,21 +31,29 @@ let key = [
 
 
 
-newGame.addEventListener('click', function(){
+newGame.addEventListener('click', function () {
 	newQuestion();
 	const previousGuess = document.querySelector('.previous-guess');
 	previousGuess.innerHTML = "";
-	
+	//clears hangman
+	ctx.clearRect(0, 0, c.width, c.height);
+	createBase();
+
+const correctGuesses = document.querySelectorAll('.correct-guesses');
+correctGuesses.childNodes.item(0).innerHTML ="";
+	console.log("what is in correct-guesses", correctGuesses);
+
+
 });
-	
+
 
 
 function newQuestion() {
 	let randomNumber = Math.floor(Math.random() * key.length);
 	console.log(randomNumber);
 	document.querySelector('.new-question').innerHTML = key[randomNumber].question;
-	console.log("question",key[randomNumber].question);
 	answer = key[randomNumber].answer;
+	console.log("answer------", key[randomNumber].answer);
 };
 
 newQuestion();
@@ -61,7 +69,7 @@ function onlyLetterCheck() {
 	};
 
 	arrayOfGuesses.push(inputField.value);
-	
+
 
 	if (inputField.value.match(letters)) {
 		return true;
@@ -91,6 +99,7 @@ function createBase() {
 	ctx.lineWidth = 10;
 	ctx.strokeStyle = "black";
 	ctx.stroke();
+
 }
 createBase();
 
@@ -111,10 +120,12 @@ function comparing(correctGuesses, guess) {
 
 function winnerComparison(correctGuesses) {
 	const arrayOfCorrectGuesses = [];
+	console.log("guessed correct---", arrayOfCorrectGuesses);
 
 	for (i = 0; i < correctGuesses.length; i++) {
 		const items = correctGuesses[i].textContent;
 		arrayOfCorrectGuesses.push(items);
+
 
 		if (arrayOfCorrectGuesses.join('') === answer) {
 			$('#exampleModalCenter2').modal('show')
