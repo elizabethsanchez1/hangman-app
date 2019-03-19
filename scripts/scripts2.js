@@ -1,9 +1,11 @@
+
 /* 
-	Finish up new game functionality 
-	- clear all divs
-	- clear hangman drawing
-	- all new game from the winner
+
+1. Set up a win loss counter using local storage
+
+
 */
+
 
 
 const c = document.getElementById('myCanvas');
@@ -12,6 +14,7 @@ let answer = "house";
 const submit = document.querySelector('.submit-btn');
 const page = document.querySelector('body');
 const newGame = document.querySelector('.new-game-btn');
+let numberOfGuesses = 0;
 let key = [
 	{
 		question: "What is the building people live inside of ?",
@@ -29,24 +32,21 @@ let key = [
 ]
 
 
-
-
 newGame.addEventListener('click', function () {
+	console.log('new game function ran');
 	newQuestion();
 	const previousGuess = document.querySelector('.previous-guess');
 	previousGuess.innerHTML = "";
 	//clears hangman
 	ctx.clearRect(0, 0, c.width, c.height);
 	createBase();
+	//clears divs 
+	const correctGuesses = document.querySelectorAll('.correct-guesses');
+	correctGuesses.forEach(function (element) {
+		element.innerHTML = "";
 
-const correctGuesses = document.querySelectorAll('.correct-guesses');
-correctGuesses.childNodes.item(0).innerHTML ="";
-	console.log("what is in correct-guesses", correctGuesses);
-
-
+	});
 });
-
-
 
 function newQuestion() {
 	let randomNumber = Math.floor(Math.random() * key.length);
@@ -57,7 +57,6 @@ function newQuestion() {
 };
 
 newQuestion();
-
 
 function onlyLetterCheck() {
 	const arrayOfGuesses = [];
@@ -83,6 +82,7 @@ function guessSquares() {
 	const guessContainer = document.querySelector('.guess-container');
 
 	answer.split("").forEach(function () {
+		console.log("first answer", answer);
 		const newSquare = document.createElement('div');
 		newSquare.className = "correct-guesses";
 		guessContainer.insertAdjacentElement('afterbegin', newSquare);
@@ -108,6 +108,7 @@ function comparing(correctGuesses, guess) {
 
 	for (i = 0; i < answer.length; i++) {
 		if (guess.value === answer[i]) {
+			console.log("answer----comparing answer function", answer);
 			correctGuesses[i].innerText = guess.value;
 			comparisonResults.push("correct");
 		} else {
@@ -139,8 +140,7 @@ function winnerComparison(correctGuesses) {
 };
 
 function handleWrongGuesses(result, guess) {
-	let numberOfGuesses = 0;
-
+	
 	if (result === true) {
 		const previousGuess = document.querySelector('.previous-guess');
 		const guessesAddedToList = document.createElement('li');
@@ -149,6 +149,7 @@ function handleWrongGuesses(result, guess) {
 		previousGuess.insertAdjacentElement('beforeend', guessesAddedToList);
 		numberOfGuesses++;
 		drawCircle();
+
 	}
 	if (result === true && numberOfGuesses === 2) {
 		drawBody();
