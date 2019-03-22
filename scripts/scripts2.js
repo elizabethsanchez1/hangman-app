@@ -1,8 +1,12 @@
 
 /* 
 
-1. Set up a win loss counter using local storage
-
+1. fix bug where the squares are not being re-drawn correctly 
+	when the user clicks new game
+	
+	1a. loop through divs that are there and deleet them
+	
+2. continue working on win lose counter
 
 */
 
@@ -15,6 +19,7 @@ const submit = document.querySelector('.submit-btn');
 const page = document.querySelector('body');
 const newGame = document.querySelector('.new-game-btn');
 let numberOfGuesses = 0;
+let counter = 0;
 let key = [
 	{
 		question: "What is the building people live inside of ?",
@@ -41,11 +46,12 @@ newGame.addEventListener('click', function () {
 	ctx.clearRect(0, 0, c.width, c.height);
 	createBase();
 	//clears divs 
-	const correctGuesses = document.querySelectorAll('.correct-guesses');
-	correctGuesses.forEach(function (element) {
-		element.innerHTML = "";
+//	const correctGuesses = document.querySelectorAll('.correct-guesses');
+	creatingSquares();
+//	correctGuesses.forEach(function (element) {
+//		element.innerHTML = "";
 
-	});
+//	});
 });
 
 function newQuestion() {
@@ -78,7 +84,7 @@ function onlyLetterCheck() {
 	}
 };
 
-function guessSquares() {
+function creatingSquares() {
 	const guessContainer = document.querySelector('.guess-container');
 
 	answer.split("").forEach(function () {
@@ -88,7 +94,7 @@ function guessSquares() {
 		guessContainer.insertAdjacentElement('afterbegin', newSquare);
 	});
 };
-guessSquares();
+creatingSquares();
 
 function createBase() {
 	ctx.beginPath();
@@ -133,11 +139,13 @@ function winnerComparison(correctGuesses) {
 			setTimeout(function () {
 				$('#exampleModalCenter2').modal('show')
 			}, 100);
+			scoreCard();
 		}
 	};
-
-	return arrayOfCorrectGuesses;
+	
+//	return arrayOfCorrectGuesses;
 };
+
 
 function handleWrongGuesses(result, guess) {
 	
@@ -191,6 +199,21 @@ function guessComparison(event) {
 	handleWrongGuesses(result, guess);
 	guess.value = "";
 };
+
+function scoreCard() {
+//	const correctGuesses = document.querySelectorAll('.correct-guesses');
+//	const winningScore = document.querySelector('.score-win');
+//	console.log("correct guess---",correctGuesses);
+//	console.log("winner -comparison", winnerComparison(correctGuesses));
+//	if(winnerComparison(correctGuesses) === true){
+		counter++
+		localStorage.setItem('winningScore', counter.toString() );
+		
+		console.log("counter", counter);
+	
+	//}
+};
+
 
 
 submit.addEventListener('click', guessComparison);
