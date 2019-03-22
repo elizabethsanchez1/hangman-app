@@ -12,6 +12,8 @@ let answer = "house";
 const submit = document.querySelector('.submit-btn');
 const page = document.querySelector('body');
 const newGame = document.querySelector('.new-game-btn');
+let counter =0;
+let numberOfGuesses = 0;
 let key = [
 	{
 		question: "What is the building people live inside of ?",
@@ -139,7 +141,7 @@ function winnerComparison(correctGuesses) {
 };
 
 function handleWrongGuesses(result, guess) {
-	let numberOfGuesses = 0;
+	
 
 	if (result === true) {
 		const previousGuess = document.querySelector('.previous-guess');
@@ -199,6 +201,19 @@ page.addEventListener('keydown', function (event) {
 		guessComparison();
 	}
 });
+
+function keepScore(){
+	let score = document.querySelector('.winning-score');
+	if(winnerComparison === true) {
+		localStorage.getItem('.counter');
+		counter = counter++
+		console.log("im counting", counter);
+	} 
+}
+
+keepScore();
+
+
 
 function drawCircle() {
 	//circle
