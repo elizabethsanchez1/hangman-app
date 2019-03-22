@@ -8,7 +8,19 @@
 	
 2. continue working on win lose counter
 
+
+
+parent should be reference to parent div 
+
+
+loop over children
+	parent.removeChild(  ref to child on page )
+
 */
+
+
+
+
 
 
 
