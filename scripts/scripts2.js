@@ -28,14 +28,9 @@ const ctx = c.getContext("2d");
 let answer = "house";
 const submit = document.querySelector('.submit-btn');
 const page = document.querySelector('body');
-const newGame = document.querySelector('.new-game-btn'); <<
-<< << < HEAD
+const newGame = document.querySelector('.new-game-btn');
 let counter = 0;
-let numberOfGuesses = 0; ===
-=== =
 let numberOfGuesses = 0;
-let counter = 0; >>>
->>> > 27 ee9d5cf20af86b4c733881172867be72705c7c
 let key = [
 	{
 		question: "What is the building people live inside of ?",
@@ -63,21 +58,15 @@ newGame.addEventListener('click', function () {
 	createBase();
 	const guessContainer = document.querySelector('.guess-container');
 	let correctGuesses = document.querySelectorAll(".correct-guesses");
+	console.log('correct Guesses', correctGuesses);
 	correctGuesses.forEach(function (item) {
-		correctGuesses.removeChild(list.childNodes[item]);
-		
 		console.log("item", item);
+		guessContainer.removeChild(item);
+
 	})
 
-
-
-	//clears divs 
-	//	const correctGuesses = document.querySelectorAll('.correct-guesses');
 	creatingSquares();
-	//	correctGuesses.forEach(function (element) {
-	//		element.innerHTML = "";
-
-	//	});
+	
 });
 
 function newQuestion() {
@@ -165,151 +154,129 @@ function winnerComparison(correctGuesses) {
 			setTimeout(function () {
 				$('#exampleModalCenter2').modal('show')
 			}, 100);
-			scoreCard();
+			winningScoreCard();
 		}
 	};
 
 	//	return arrayOfCorrectGuesses;
 };
 
-<<
-<< << < HEAD
-
 function handleWrongGuesses(result, guess) {
 
-	===
-	=== = >>>
-	>>> > 27 ee9d5cf20af86b4c733881172867be72705c7c
+	if (result === true) {
+		const previousGuess = document.querySelector('.previous-guess');
+		const guessesAddedToList = document.createElement('li');
+		guessesAddedToList.className = 'list-guesses';
+		guessesAddedToList.innerHTML = guess.value + ',';
+		previousGuess.insertAdjacentElement('beforeend', guessesAddedToList);
+		numberOfGuesses++;
+		drawCircle();
 
-	function handleWrongGuesses(result, guess) {
+	}
+	if (result === true && numberOfGuesses === 2) {
+		drawBody();
+	}
+	if (result === true && numberOfGuesses === 3) {
+		drawRightArm();
+	}
+	if (result === true && numberOfGuesses === 4) {
+		drawLeftArm();
+	}
+	if (result === true && numberOfGuesses === 5) {
+		drawRightLeg();
+	}
+	if (result === true && numberOfGuesses === 6) {
+		drawLeftLeg();
+	}
+	if (numberOfGuesses === 6) {
+		losingScoreCard();
+		previousGuess.innerHTML = "";
+		previousGuess.innerHTML = `<li class="list-guesses">You Lose!</li>`;
+	}
+};
 
-		if (result === true) {
-			const previousGuess = document.querySelector('.previous-guess');
-			const guessesAddedToList = document.createElement('li');
-			guessesAddedToList.className = 'list-guesses';
-			guessesAddedToList.innerHTML = guess.value + ',';
-			previousGuess.insertAdjacentElement('beforeend', guessesAddedToList);
-			numberOfGuesses++;
-			drawCircle();
-
-		}
-		if (result === true && numberOfGuesses === 2) {
-			drawBody();
-		}
-		if (result === true && numberOfGuesses === 3) {
-			drawRightArm();
-		}
-		if (result === true && numberOfGuesses === 4) {
-			drawLeftArm();
-		}
-		if (result === true && numberOfGuesses === 5) {
-			drawRightLeg();
-		}
-		if (result === true && numberOfGuesses === 6) {
-			drawLeftLeg();
-		}
-		if (numberOfGuesses === 6) {
-			previousGuess.innerHTML = "";
-			previousGuess.innerHTML = `<li class="list-guesses">You Lose!</li>`;
-		}
-	};
-
-	function guessComparison(event) {
-		const guess = document.querySelector('.form-control');
-		const correctGuesses = document.querySelectorAll('.correct-guesses');
+function guessComparison(event) {
+	const guess = document.querySelector('.form-control');
+	const correctGuesses = document.querySelectorAll('.correct-guesses');
 
 
-		if (onlyLetterCheck() === false) {
-			guess.value = "";
-			return;
-		}
-		const comparisonResults = comparing(correctGuesses, guess);
-
-		const result = comparisonResults.every(function (element, index) {
-			return element === "incorrect";
-		});
-
-		winnerComparison(correctGuesses);
-		handleWrongGuesses(result, guess);
+	if (onlyLetterCheck() === false) {
 		guess.value = "";
-	};
+		return;
+	}
+	const comparisonResults = comparing(correctGuesses, guess);
 
-	function scoreCard() {
-		//	const correctGuesses = document.querySelectorAll('.correct-guesses');
-		//	const winningScore = document.querySelector('.score-win');
-		//	console.log("correct guess---",correctGuesses);
-		//	console.log("winner -comparison", winnerComparison(correctGuesses));
-		//	if(winnerComparison(correctGuesses) === true){
-		counter++
-		localStorage.setItem('winningScore', counter.toString());
-
-		console.log("counter", counter);
-
-		//}
-	};
-
-
-
-	submit.addEventListener('click', guessComparison);
-
-	page.addEventListener('keydown', function (event) {
-		if (event.keyCode === 13) {
-			guessComparison();
-		}
+	const result = comparisonResults.every(function (element, index) {
+		return element === "incorrect";
 	});
 
-	function keepScore() {
-		let score = document.querySelector('.winning-score');
-		if (winnerComparison === true) {
-			localStorage.getItem('.counter');
-			counter = counter++
-			console.log("im counting", counter);
-		}
+	winnerComparison(correctGuesses);
+	handleWrongGuesses(result, guess);
+	guess.value = "";
+};
+
+function winningScoreCard() {
+	let updateWinScore = document.querySelector('.win');
+	counter++
+	localStorage.setItem('winningScore', counter.toString());
+	updateWinScore.innerHTML = counter;
+};
+function losingScoreCard() {
+	let updatelosingScore = document.querySelector('.lose')
+	counter++
+	localStorage.setItem('losingScore', counter.toString());
+	updatelosingScore.innerHTML =counter;
+}
+
+
+
+submit.addEventListener('click', guessComparison);
+
+page.addEventListener('keydown', function (event) {
+	if (event.keyCode === 13) {
+		guessComparison();
 	}
+});
 
-	keepScore();
+function drawCircle() {
+	//circle
+	ctx.beginPath();
+	ctx.arc(295, 220, 50, 0, 2 * Math.PI);
+	ctx.stroke();
+};
 
+function drawBody() {
+	// straight line for the body 
+	ctx.beginPath();
+	ctx.moveTo(300, 500);
+	ctx.lineTo(300, 270);
+	ctx.stroke();
+};
 
+function drawRightArm() {
+	//right arm
+	ctx.moveTo(300, 350);
+	ctx.lineTo(400, 300);
+	ctx.stroke();
+};
 
-	function drawCircle() {
-		//circle
-		ctx.beginPath();
-		ctx.arc(295, 220, 50, 0, 2 * Math.PI);
-		ctx.stroke();
-	};
+function drawLeftArm() {
+	//left arm
+	ctx.moveTo(300, 350);
+	ctx.lineTo(200, 300);
+	ctx.stroke();
+};
 
-	function drawBody() {
-		// straight line for the body 
-		ctx.beginPath();
-		ctx.moveTo(300, 500);
-		ctx.lineTo(300, 270);
-		ctx.stroke();
-	};
+function drawRightLeg() {
+	//right leg
+	ctx.moveTo(369, 525);
+	ctx.lineTo(300, 495);
+	ctx.stroke();
+};
 
-	function drawRightArm() {
-		//right arm
-		ctx.moveTo(300, 350);
-		ctx.lineTo(400, 300);
-		ctx.stroke();
-	};
-
-	function drawLeftArm() {
-		//left arm
-		ctx.moveTo(300, 350);
-		ctx.lineTo(200, 300);
-		ctx.stroke();
-	};
-
-	function drawRightLeg() {
-		//right leg
-		ctx.moveTo(369, 525);
-		ctx.lineTo(300, 495);
-		ctx.stroke();
-	};
-
-	function drawLeftLeg() {
-		//left leg
-		ctx.moveTo(230, 520);
-		ctx.lineTo(300, 495);
-		ctx.stroke();
-	}
+function drawLeftLeg() {
+	//left leg
+	ctx.moveTo(230, 520);
+	ctx.lineTo(300, 495);
+	ctx.stroke();
+}
