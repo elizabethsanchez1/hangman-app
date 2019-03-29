@@ -138,25 +138,19 @@ function winnerComparison(correctGuesses) {
 };
 
 function handleWrongGuesses(result, guess) {
-
+let previousGuess = document.querySelector('.previous-guess');
 
 
 	if (result === true) {
-		console.log('result----', result);
-		let previousGuess = document.querySelector('.previous-guess');
 		const guessesAddedToList = document.createElement('li');
 		guessesAddedToList.className = 'list-guesses';
 		guessesAddedToList.innerHTML = guess.value + ',';
 		previousGuess.insertAdjacentElement('beforeend', guessesAddedToList);
 		numberOfGuesses++;
-		console.log('number of guesses 1', numberOfGuesses);
 		drawCircle();
 
 	}
 	if (result === true && numberOfGuesses === 2) {
-		console.log('result2----', result);
-		
-		console.log("guess 2", numberOfGuesses);
 		drawBody();
 	}
 	if (result === true && numberOfGuesses === 3) {
@@ -172,11 +166,9 @@ function handleWrongGuesses(result, guess) {
 		drawLeftLeg();
 	}
 	if (numberOfGuesses === 6) {
-		console.log("is the number of guesses 6", numberOfGuesses);
-		console.log("what is numberOfGuesses", numberOfGuesses);
-		
 		previousGuess.innerHTML = "";
 		previousGuess.innerHTML = `<li class="list-guesses">You Lose!</li>`;
+		losingScoreCard();
 	}
 };
 
