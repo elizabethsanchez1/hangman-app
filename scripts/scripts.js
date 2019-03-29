@@ -3,6 +3,8 @@ const ctx = c.getContext("2d");
 const answer = "house";
 const submit = document.querySelector('.submit-btn');
 const page = document.querySelector('body');
+let numberOfGuesses =0;
+
 
 
 
@@ -82,7 +84,6 @@ function winnerComparison(correctGuesses) {
 };
 
 function handleWrongGuesses(result, guess) {
-	let numberOfGuesses = 0;
 	
 	if (result === true) {
 		const previousGuess = document.querySelector('.previous-guess');

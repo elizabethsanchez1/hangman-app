@@ -74,6 +74,13 @@ body {
 	font-size: 30px;
 	padding: 20px;
 }
+.btn {
+	background-color: darkgray;
+}
+
+.new-games {
+	background-color: lightcyan;
+}
 
 .score-container {
 	display: flex;
@@ -95,3 +102,4 @@ body {
 	top: 12%;
 	right: 3%;
 }
+
